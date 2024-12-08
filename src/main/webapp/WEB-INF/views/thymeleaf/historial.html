@@ -1,0 +1,135 @@
+<!DOCTYPE HTML>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Historial Suscriptores</title>
+
+    <!-- Boostrap core css -->
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.0/css/bootstrap.min.css}"/>
+
+    <!-- custom style -->
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            height: 100vh;
+            background-color: #f4f4f9;
+            margin: 0;
+            flex-direction: column;
+            padding: 20px;
+        }
+        .form-container, .subscriber-list {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 600px;
+        }
+        .form-container h2, .subscriber-list h3 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .form-container label, .form-container input, .form-container button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+        .form-container button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .form-container button:hover {
+            background-color: #45a049;
+        }
+        .subscriber-list ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .subscriber-list li {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .subscriber-list button {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        .subscriber-list button:hover {
+            background-color: #e53935;
+        }
+    </style>
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" href="#">UNLAM</a>
+</nav>
+
+<main role="main" class="container">
+    <div class = "container">
+        <h1>Consultar por tipo de plan</h1>
+
+        <a href="suscripcion" class="btn btn-lg btn-primary btn-block">Volver</a>
+    </div>
+    <div class="form-container">
+        <h2>Consultar Historial de Suscriptores</h2>
+        <form action="#" th:action="@{/historial}" th:object="${datosSuscripcion}" method="POST">
+            <!-- Checkbox para los planes -->
+            <label><input type="checkbox"  name= "plan" th:field="*{plan}" value="BASICO"> Plan Básico</label>
+            <label><input type="checkbox"  name="plan" th:field="*{plan}" value="PREMIUM"> Plan Premium</label>
+
+            <button type="submit" >Consultar</button>
+        </form>
+    </div>
+
+
+    <div class="subscriber-list">
+        <h3>Suscriptores del Plan Seleccionado</h3>
+        <div class="contairer pt-2">
+
+            <ul>
+                <li th:each ="filtrado : ${filtrado} ">
+                    <span th:text="${filtrado.dni}"></span>
+                    <span th:text="${filtrado.plan}"></span>
+
+
+                    <a th:href="@{'/eliminar/' + ${filtrado.dni}}">Quitar</a>
+                    <!--
+                   <form th:action="@{'/eliminar/' + ${filtrado.dni}}" method="post">
+
+                       <button type="submit">Quitar</button>
+
+                   </form>
+-->
+                     <!-- <button th:href="@{'/eliminar'}">Quitar</button>-->
+                </li>
+            </ul>
+
+        </div>
+
+    </div>
+
+</main>
+<!-- /.container -->
+
+<!-- Boostrap core js -->
+<script type="text/javascript" th:src="@{webjars/bootstrap/5.2.0/js/bootstrap.min.js}"></script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Calculadora</title>
+</head>
+<body>
+<h1>Formulario de Suscripción</h1>
+<form action="#" th:action="@{/suscribirme}" th:object="${datosSuscripcion}" method="post">
+    <label for="dni">Ingrese su DNI:</label>
+    <input type="number" id="dni" th:field="*{dni}" required/>
+    <br/>
+
+    <br/>
+
+    <label for="plan">Seleccione un Plan:</label>
+    <select id="plan" th:field="*{plan}" required>
+        <option th:each="plan : ${plan}" th:value="${plan}" th:text="${plan}"></option>
+    </select>
+
+    <button id="btn-login" class="btn btn-lg btn-primary btn-block" Type="Submit">Suscribir</button>
+
+
+    <a th:href="@{'/listado'}" class="btn btn-lg btn-primary btn-block">Listado</a>
+    <a th:href="@{'/historial'}" class="btn btn-light btn-outline-dark">Historial</a>
+
+    <p th:if="${error != null}" class="alert alert-danger" th:text="'Error ' + ${error}"></p>
+    <p th:if="${exito != null}" class="alert alert-success" th:text="'Felicitaciones ' + ${exito}"></p>
+
+</form>
+</body>
+</html>
